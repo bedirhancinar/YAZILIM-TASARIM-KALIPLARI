@@ -1,0 +1,44 @@
+//intellij de plantuml pluguni eklenmiştir.
+//graphviz indirilerek kurulmuştur.
+//daha sonra aşağıdaki kod çalıştırılarak resimlerde gösterilen uml ler elde edilmiştir.
+/*
+    @startuml
+      class Gelir {
+        - zam: int
+        - maas: float
+        --
+        +salary()
+        +salary(int,float)
+        --
+        +getZam()
+        +setZam(int)
+        +getMaas()
+        +setMaas(float)
+    }
+    class Kisi {
+        + name: String
+        + surname: int
+        + boolean: bloen
+        --
+        +kisi()
+        --
+        +getName()
+        +setName(String)
+        +getSurname()
+        +setSurame(String)
+    }
+    class Deneme {
+        -degisken: int
+        +degisken2: String
+        --
+       +Deneme()
+        --
+        +fonksiyon(int)
+        +fonksiyon2(String)
+    }
+    Gelir<|--Kisi
+
+
+    @enduml
+
+     */
