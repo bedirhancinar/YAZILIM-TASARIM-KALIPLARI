@@ -74,26 +74,9 @@ link:readme.asciidoc[readme.asciidoc]
 
 https://discuss.asciidoctor.org[Discuss Asciidoctor,role=external,window=_blank]
 
-https://discuss.asciidoctor.org[Discuss Asciidoctor^]
-
 https://example.org["Google, Yahoo, Bing^",role=teal]
 
 
-.inline anchors
-
-[[bookmark-a]]Inline anchors make arbitrary content referenceable.
-
-[#bookmark-b]#Inline anchors can be applied to a phrase like this one.#
-
-anchor:bookmark-c[]Use a cross reference to link to this location.
-
-[[bookmark-d,last paragraph]]The xreflabel attribute will be used as link text in the cross-reference link.
-
-
-.Internal cross references
-
-See <<paragraphs>> to learn how to write paragraphs.
-Learn how to organize the document into <<section-titles,sections>>.
 
 
 
@@ -120,14 +103,17 @@ image:aslan.jpg[Sunset,80,100,role="left"] Aslan resmi sola yaslı
 ---
 
 .block video (video olunca program kendini kapatıyor)
+
 video::calismiyor.mp4[]
 
 video::calismiyor.mp4[width=640, start=60, end=140, options=autoplay]
 
 .embedded youtube video  (youtubedan videoyu çekemiyor ama vimeo çalışıyor)
+
 video::fObqACgLhqM[youtube]
 
 .embedded vimeo video
+
 video::13494202[vimeo]
 
 
@@ -142,10 +128,52 @@ video::13494202[vimeo]
 
 
 
+---
+
+== Kaynak Kodlar
+
+.c++
+
+:source-highlighter: pygments
+:source-language: c++
+
+[source]
+----
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int firstNumber, secondNumber, sumOfTwoNumbers;
+    
+    cout << "Enter two integers: ";
+    cin >> firstNumber >> secondNumber;
+
+    // sum of two numbers in stored in variable sumOfTwoNumbers
+    sumOfTwoNumbers = firstNumber + secondNumber;
+
+    // Prints sum 
+    cout << firstNumber << " + " <<  secondNumber << " = " << sumOfTwoNumbers;     
+
+    return 0;
+}
+----
 
 
 
+.linux bash script
 
+
+[source,bash script]
+----
+#!/bin/bash
+
+# Add two numeric value
+((sum=25+35))
+
+#Print the result
+echo $sum
+----
 
 
 
