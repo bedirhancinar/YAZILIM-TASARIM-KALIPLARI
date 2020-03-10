@@ -13,7 +13,7 @@
   AsciiDoc, insanlar tarafından okunup anlaşılabilecek , DocBook XML ile semantik olarak eşdeğer olan, ancak düz metin işaretleme kuralları kullanan bir belge biçimidir.
 
 
-- Linux Nedir?
+.Linux Nedir?
 
 * Bilgisayar işletim sistemlerinin en temel parçası olan çekirdek yazılımlarından bir tanesidir.
 * GNU Genel Kamu Lisansı ile sunulan ve Linux Vakfı çatısı altında geliştirilen bir özgür yazılım projesidir.
@@ -23,24 +23,132 @@
 ---
 
 
-- Bazı Linux Dağıtımlar
+.Bazı Linux Dağıtımları 
 
 . Arch
 . Fedora
 . Debian
 . Ubuntu
 . Slackware
+. Linux Mint
+. OpenSUSE
+. Manjaro Linux
+. Gentoo Linux
+. Zorin OS
+
+---
+
+TIP: Burada İpucular vererek okuyucuya kolaylık sağlayabilirsiniz.
+
+CAUTION: Dikkat çekmek için CAUTION: kullanılabilir .
+
+WARNING: Uyarı vermek için Warning: etiketini kullanabilirsiniz.
+
+IMPORTANT: Önemli noktaları IMPORTANT: etiketiye bu şekilde vurgulayabilirsiniz.
+
+
+---
+
+.extenal link
+
+https://github.com/bedirhancinar/YAZILIM-TASARIM-KALIPLARI 
+
+https://github.com/bedirhancinar/YAZILIM-TASARIM-KALIPLARI[Ödev Linki]
+
+https://github.com/bedirhancinar/YAZILIM-TASARIM-KALIPLARI[ *GitHub* Ödev Linki ]
+
+
+.with spaces and special characters link
+
+link:++https://example.org/?q=[a b]++[Özel karakterli link örneği: ++https://example.org/?q=[a b]++]
+
+link:https://example.org/?q=%5Ba%20b%5D[Özel karakterli link örneği: https://example.org/?q=%5Ba%20b%5D]
+
+
+.relative link
+
+link:readme.asciidoc[readme.asciidoc]
+
+
+.link with attributes
+
+https://discuss.asciidoctor.org[Discuss Asciidoctor,role=external,window=_blank]
+
+https://discuss.asciidoctor.org[Discuss Asciidoctor^]
+
+https://example.org["Google, Yahoo, Bing^",role=teal]
+
+
+.inline anchors
+
+[[bookmark-a]]Inline anchors make arbitrary content referenceable.
+
+[#bookmark-b]#Inline anchors can be applied to a phrase like this one.#
+
+anchor:bookmark-c[]Use a cross reference to link to this location.
+
+[[bookmark-d,last paragraph]]The xreflabel attribute will be used as link text in the cross-reference link.
+
+
+.Internal cross references
+
+See <<paragraphs>> to learn how to write paragraphs.
+Learn how to organize the document into <<section-titles,sections>>.
+
+
+
+---
+
+.Resim blok
+
+.Aslan orjinal boyut
+image::aslan.jpg[Aslan]
+
+.Aslan resize 300,200
+image::aslan.jpg[Sunset,300,200]
+
+.resim inline
+image:aslan.jpg[Sunset,80,100,role="left"] Aslan resmi sola yaslı
+
+
+---
+
+.resim embeded
+
+:aslan.jpg:
+
+---
+
+.block video (video olunca program kendini kapatıyor)
+video::calismiyor.mp4[]
+
+video::calismiyor.mp4[width=640, start=60, end=140, options=autoplay]
+
+.embedded youtube video  (youtubedan videoyu çekemiyor ama vimeo çalışıyor)
+video::fObqACgLhqM[youtube]
+
+.embedded vimeo video
+video::13494202[vimeo]
+
+
+
+.Tablo
+[width="100%",options="header,footer"]
+|====================
+|Başlık 1  |  Başlık 2  
+| 1.satır 1.sütun  |  1.satır 2.sütun 
+| 2.satır 1.sütun  |  2.satır 2.sütun
+|====================
 
 
 
 
-TIP: Tip.
 
-CAUTION: Caution.
 
-WARNING: Warning.
 
-IMPORTANT: Important.
+
+
+
 
 
 
