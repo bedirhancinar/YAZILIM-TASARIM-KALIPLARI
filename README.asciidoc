@@ -67,14 +67,17 @@ link:https://example.org/?q=%5Ba%20b%5D[Özel karakterli link örneği: https://
 
 .relative link
 
-link:readme.asciidoc[readme.asciidoc]
+link:README.asciidoc[readme.asciidoc]
+
+
+link:https://github.com/bedirhancinar/YAZILIM-TASARIM-KALIPLARI/wiki/readme.asciidoc[Github Wiki]
 
 
 .link with attributes
 
 https://discuss.asciidoctor.org[Discuss Asciidoctor,role=external,window=_blank]
 
-https://example.org["Google, Yahoo, Bing^",role=teal]
+https://example.org["Google,  Bing^",role=teal]
 
 
 
