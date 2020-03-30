@@ -1,0 +1,287 @@
+ 
+
+
+
+
+== Association (Referans veya Birliktelik)
+
+ Bir sınıfın başka bir sınıfa ait referans içermesi durumudur. Örneğimizdeki senaryoda Üniversite Fakülte sınıfından bir nesne içermektedir. Benzer şekilde fakültede bölüm sınıfından bir nesne içermektedir.
+
+.Association Örneği
+[uml,file="association.png"]
+--
+left to right direction
+
+class Universite{
+ + fakulte: Fakulte
+ + sehir: String
+}
+
+class Fakulte{
+ + bolum: Bolum
+}
+
+class Bolum{
+ + isim: String
+ + kapasite: int
+}
+
+
+Universite -- Fakulte
+Fakulte -- Bolum
+--
+
+
+
+== Aggregation (Barındırma, İçerme)
+
+    Bir parça bütün ilişkisidir. Bir bütünün bir yada birden fazla nesneyi içermesi durumudur.
+    
+
+.Aggregation örneği
+[uml,file="aggregation.png"]
+--
+left to right direction
+
+class Ucak{
+    -hiz: float
+    -yakitDepo: float
+    --
+    +ucak()
+    --
+    +getHiz()
+    +setHiz()
+    +getYakitDepo()
+    +setYakitDepo()
+}
+
+
+class Motor{
+    -tork: float
+    -silindir: int
+    --
+    +motor()
+    --
+    +getTork()
+    +setTork()
+    +getSilindir()
+    +setSilindir()
+}
+
+class Kanat{
+    +uzunluk: int
+    --
+    +kanat()
+}
+
+
+
+Ucak o-- Motor
+Ucak o-- Kanat
+
+
+--
+
+
+== Composition (Bağımlı İyelik)
+
+  Aggregationun bağımlı halidir. Bütün ve parçalar arasında bağımlılık vardır. Biri olmadan diğeride olmaz.
+  
+  
+.Composition örneği
+[uml,file="composition.png"]
+--
+İnsan *-- Kalp
+İnsan *-- Beyin
+İnsan *-- Böbrek
+İnsan *-- Mide
+
+--
+
+
+
+== Generalization (Genelleme)
+
+ Nesneye yönelik programlamadaki kalıtım (inheritance) mantığıyla aynıdır. Bir nesnenin başka bir nesneye dayalı olma durumudur.
+  
+  
+.Generalization örneği
+[uml,file="generalization.png"]
+--
+class Arac{
+    -model: Date
+    -tur:   String
+    --
+    +arac()
+    --
+    +getModel()
+    +getTur()
+}
+
+class Ucak{
+    -hiz: float
+    -yakitDepo: float
+    --
+    +ucak()
+    --
+    +getHiz()
+    +setHiz()
+    +getYakitDepo()
+    +setYakitDepo()
+}
+
+
+class Araba{
+    -hiz: float
+    -tekerSayisi: int
+    +marka: String
+    --
+    +araba()
+    --
+    +getHiz()
+    +setHiz()
+    +getTekerSayisi()
+    +setTekerSayisi()
+}
+
+Arac <|-- Ucak
+Arac <|-- Araba
+
+
+--
+
+
+
+== Realization (Gerçekleme)
+
+  Soyut sınıf ve bu sınıfla ilişkili olan sınıfı göstermek için kullanılır. 
+  
+  
+.Realization  örneği
+[uml,file="realization.png"]
+--
+left to right direction
+
+abstract class AbstractClass
+
+AbstractClass <|.. Class
+--
+
+
+
+== Dependency (Bağımlılık)
+
+  Bir nesnenin başka bir nesneye bağlı olması durumudur.
+  
+  
+.Dependency  örneği
+[uml,file="dependency.png"]
+--
+left to right direction
+
+CarFactory ..> Car  : <<instantiate(örneklendirmek)>>
+
+
+--
+
+
+
+== Use (Kullanma)
+
+  Bir nesnenin başka bir nesneyle geçici olarak ilişki kurması durumudur.
+  
+  
+.Use  örneği
+[uml,file="use.png"]
+--
+left to right direction
+
+SearchController ..> SearchService  : <<use>>
+--
+
+
+== Bir kaç başlığın toplu olarak gösterimi
+
+
+.Bir kaç başlığın toplu olarak gösterimi
+[uml,file="topluuml.png"]
+--
+
+
+class Arac{
+    -model: Date
+    -tur:   String
+    --
+    +arac()
+    --
+    +getModel()
+    +getTur()
+}
+
+class Ucak{
+    -hiz: float
+    -yakitDepo: float
+    --
+    +ucak()
+    --
+    +getHiz()
+    +setHiz()
+    +getYakitDepo()
+    +setYakitDepo()
+}
+
+
+class Araba{
+    -hiz: float
+    -tekerSayisi: int
+    --
+    +araba()
+    --
+    +getHiz()
+    +setHiz()
+    +getTekerSayisi()
+    +setTekerSayisi()
+}
+
+class Motor{
+    -tork: float
+    -silindir: int
+    --
+    +motor()
+    --
+    +getTork()
+    +setTork()
+    +getSilindir()
+    +setSilindir()
+}
+
+class Kanat{
+    +uzunluk: int
+    --
+    +kanat()
+}
+
+Arac <|-- Ucak
+Arac <|-- Araba
+
+Ucak *-- Motor
+Ucak *-- Kanat
+
+Araba *-- Motor
+
+UcakFabrikası ..> Ucak  : <<instantiate(örneklendirmek)>>
+
+
+Motor ..> MotorTesti  : <<use>>
+
+Ucak -- Filo
+
+abstract class SoyutSınıf
+
+SoyutSınıf <|.. Filo
+
+
+
+--
+
+
