@@ -8,9 +8,10 @@ public class Main {
 
         SoruFabrikası sorufabrikası=new SoruFabrikası();
         Random rand = new Random();
+        Soru sorubankası[]=new Soru[10];
 
         for (int i=0;i<10;i++){
-            sorufabrikası.SoruUret(rand.nextInt(3)+1);
+            sorubankası[i]  =  sorufabrikası.SoruUret(rand.nextInt(3)+1);
         }
 
     }

@@ -13,23 +13,19 @@ left to right direction
 
     class Matematik {
     
-        +soruOlustur()
-    
+
     }
     class Fizik {
     
-        +soruOlustur()
-    
+
     }
     class Kimya {
     
-        +soruOlustur()
-    
+
     }
     class Biyoloji {
     
-        +soruOlustur()
-    
+
     }
     
     Soru <|.. Matematik : <<implement>>
