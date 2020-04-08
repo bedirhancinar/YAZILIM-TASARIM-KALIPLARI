@@ -1,0 +1,140 @@
+.Singleton and Thread Safe Singleton
+[uml,file="singleton.png"]
+--
+
+
+    class MenuSingleton {
+    
+        -{static} ornekMenuSingleton : MenuSingleton
+        
+       
+        
+        -Menu()
+        
+        +{static}getOrnekMenuSingleton()
+       
+    
+    }
+
+    class Menu {
+    
+        -{static}<<volatile>> ornekMenu : Menu
+        -{static} lock : Object
+        -yemekListesi: HashMap
+        -tatliListesi: HashMap
+        -icecekListesi: HashMap
+        
+        -Menu()
+        
+        +{static}getOrnekMenu()
+        +getYemekListesi()
+        +setYemekListesi()
+        +getTatliListesi()
+        +setTatliListesi()
+        +getIcecekListesi()
+        +setIcecekListesi()
+    
+    }
+    
+   Menu"1" -- "1"Menu
+   Menu"*" -- "1"ThreadSafeSingleton
+   MenuSingleton"*" -- "1"ThreadSafeSingleton
+   nesne "*" -- "1"ThreadSafeSingleton
+   ThreadSafeSingleton"1" -- "*"ThreadSafeSingleton
+   
+   
+   
+   
+   class ThreadSafeSingleton{
+        +run()
+        +{static}main(String[] args)
+   
+   
+   }
+
+Thread <|.. ThreadSafeSingleton : <<extend>>
+
+
+--
+
+
+== Singleton
+
+ İlk üç madde singleton yapısının taşıması gereken şartları içermektedir. private static nesne referansı. Private constructor ve dışardan erişimi sağlamak için public static getInstance methodu. Singletonda amaç ramde yer gereksiz yer kaplamayı engellemek adına tekrar tekrar üretilmesine gerek olmayan nesnelerden 1 tane üretilerek çağrıldığında aynı nesneyi döndürmektir.
+
+[source,java]
+----
+public class MenuSingleton {
+
+    private static MenuSingleton ornekMenuSingleton =null; // <1>
+
+    private MenuSingleton(){} //<2>
+    
+    public static MenuSingleton getOrnekMenuSingleton() {  //<3>
+  
+        if (ornekMenuSingleton == null) { //<4>
+                ornekMenuSingleton = new MenuSingleton(); 
+        }
+        return ornekMenuSingleton;
+
+    } 
+    
+----
+<1> private static tipinde MenuSingleton Tipinde nesne refere edilir singletonun şartlarından biridir.
+<2> private tipte constructor üretilir singleton yapısının şartlarından biridi yeni nesne oluşturulmasını engellemek için.
+<3> public static tipinde dışardan erişilebilerek aynı nesneyi döndürecek fonksiyon oluşturulur singletonun şartlarındandır.
+<4> daha önce bir nesne oluşturulmuşmu kontrol edilir oluşturulduysa o nesne döndürülür oluşturulmadıysa bir nesne oluşturulup o nesne döndürülür.
+
+
+
+== Thread Safe Singleton
+
+ Singleton threadlerle çalışıldığında nesnenin daha önce üretilip üretilmediğinin kontro edildiği kısımda threadlerle çalışıldığı için birden fazla nesne üretebilme sıkıntısı gösterebilmektedir. Bunun için singleton yapısının thread safe haline getirilmesi gerekir.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+[source,java]
+----
+public class Menu {
+
+    private static volatile Menu ornekMenu;  // <1>
+    private static Object lock = new Object(); //<2>
+    private Menu(){}  //<3>
+    
+     public static Menu getOrnekMenu() {  //<4>
+        Menu result = ornekMenu;  //<5>
+        if (result == null) {          
+            synchronized (lock) {    //<6>
+                result = ornekMenu;
+                if (result == null) //<7>
+                    ornekMenu = result = new Menu(); 
+            }
+        }
+        return result; //<8>
+    }
+
+----
+ 
+<1> private static volatile tipinde Menu Tipinde nesne refere edilir singletonun şartlarından biridir. Volatile program dışında etki altında bulunabilmesi için kullanılır.
+<2> thread safe olayının sağlanması için synchronizeda parametre olarak verilir daha sonra 6. maddede anlatılacak.
+<3> private tipte constructor üretilir singleton yapısının şartlarından biridi yeni nesne oluşturulmasını engellemek için.
+<4> public static tipinde dışardan erişilebilerek aynı nesneyi döndürecek fonksiyon oluşturulur singletonun şartlarındandır.
+<5> volatile etkisinden kurtarmak için local bir değişkene atama yapar
+<6> thread safe özelliğinin sağlanması için javada synchronized özelliği kulanılır ve bu sayede belirlenen bir obje üzerinden threadlerin aynı anda çalışarak istenmeyen sonuçlar oluşturmasını engeller.
+<7>  daha önce nesne oluşturuldumu kontrol eder oluşturulmadıysa yeni nesne oluşturur.
+<8> daha önce oluşturulan nesneyi yada daha önce nesne oluşturulmadıysa yeni oluşturulan nesneyi döndürür.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
