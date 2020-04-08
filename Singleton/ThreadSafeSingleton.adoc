@@ -1,19 +1,13 @@
 .Singleton and Thread Safe Singleton
 [uml,file="singleton.png"]
 --
-
-
     class MenuSingleton {
-    
         -{static} ornekMenuSingleton : MenuSingleton
         
-       
         
         -Menu()
         
-        +{static}getOrnekMenuSingleton()
-       
-    
+        +{static}getOrnekMenuSingleton() :MenuSingleton
     }
 
     class Menu {
@@ -26,7 +20,7 @@
         
         -Menu()
         
-        +{static}getOrnekMenu()
+        +{static}getOrnekMenu() : Menu
         +getYemekListesi()
         +setYemekListesi()
         +getTatliListesi()
@@ -41,7 +35,7 @@
    MenuSingleton"*" -- "1"ThreadSafeSingleton
    nesne "*" -- "1"ThreadSafeSingleton
    ThreadSafeSingleton"1" -- "*"ThreadSafeSingleton
-   
+   MenuSingleton"1" -- "1" MenuSingleton
    
    
    
