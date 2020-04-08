@@ -1,0 +1,157 @@
+.Factory
+[uml,file="factory.png"]
+--
+left to right direction
+
+
+
+    interface Soru{
+        soruOlustur()
+    }
+    
+    
+
+    class Matematik {
+    
+        +soruOlustur()
+    
+    }
+    class Fizik {
+    
+        +soruOlustur()
+    
+    }
+    class Kimya {
+    
+        +soruOlustur()
+    
+    }
+    class Biyoloji {
+    
+        +soruOlustur()
+    
+    }
+    
+    Soru <|.. Matematik : <<implement>>
+    Soru <|.. Fizik : <<implement>>
+    Soru <|.. Kimya : <<implement>>
+    Soru <|.. Biyoloji : <<implement>>
+
+
+    class SoruFabrikası{
+        +SoruUret(int sorutipi)
+    }
+
+    class Main{
+        +{static}main(String[] args)
+    }
+
+    Main "1" -- "*" SoruFabrikası
+    Main"1" -- "1" Random
+    
+    
+    SoruFabrikası ..|> Soru : <<return>>
+    
+    SoruFabrikası ..|> Matematik : <<use>>
+    SoruFabrikası ..|> Fizik : <<use>>
+    SoruFabrikası ..|> Kimya : <<use>>
+    SoruFabrikası ..|> Biyoloji : <<use>>
+
+
+    
+
+--
+
+
+== Factory
+
+ Factory tasarım kalıbı aynı (abstract yada interface) superclasstan implement(extend) edilmiş bir çok sınıfın bir factory sınıfındaki public methoda gönderilen parametre aracılığıyla hangi tipte geri dönüş alacağının seçilebilmesi işlemidir. Kod karmaşıklığını ve anlaşılırlığını yönetmek açısından avantajlar sağlar
+
+[source,java]
+----
+public interface Soru { //<1>
+
+    void soruOlustur(); //<2>
+}
+    
+----
+<1> Soru isminde bir interface oluşturuluyor
+<2> Kalıtım sağlanan sınıflarda override edilmek üzere fonksiyon belirtiliyor.
+
+
+
+
+ 
+[source,java]
+----
+public class Fizik implements Soru { //<1>
+
+    @Override
+    public void soruOlustur() {  //<2>
+        System.out.println("Fizik sorusu oluşturuldu.");
+    }
+}
+
+----
+ 
+<1> İnterface sınıf implement edilmiştir.
+<2> İnterfacede belirtilen fonksiyonlar override edilmiştir.
+
+
+
+
+ 
+ 
+ 
+ 
+[source,java]
+----
+public class SoruFabrikası {
+
+    public Soru SoruUret(int sorutipi){   //<1>
+
+        if (sorutipi == 1)  
+            new Matematik().soruOlustur();  //<2>
+        else if (sorutipi == 2)
+            new Fizik().soruOlustur();
+        else if (sorutipi == 3)
+            new Kimya().soruOlustur();
+        else if (sorutipi == 4)
+            new Biyoloji().soruOlustur();
+
+        return null;
+    }
+}
+
+----
+ 
+<1> Aldığı parametre doğrultusunda soru tipinde geri dönüş yapan public bir fonksiyon.
+<2> Girilen parametreye göre belirli tiplerde nesne dönderir.
+ 
+ 
+ 
+ 
+ 
+[source,java]
+----
+public class Main {
+
+    public static void main(String[] args) {
+
+        SoruFabrikası sorufabrikası=new SoruFabrikası();  //<1>
+        Random rand = new Random(); //<2>
+
+        for (int i=0;i<10;i++){
+            sorufabrikası.SoruUret(rand.nextInt(3)+1); //<3>
+        }
+
+    }
+}
+
+----
+ 
+<1> SoruFabrikası sınıfından bir nesne üretir.  
+<2> Random sınıfından rand isminde bir nesne üretir. 
+<3> 10 adet rastgele seçilen bir tipte soru getirir.
+
+
