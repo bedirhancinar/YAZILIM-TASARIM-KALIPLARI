@@ -1,0 +1,50 @@
+.Prototype
+[uml,file="prototype.png"]
+--
+    interface Yemekhane {
+        
+        shadowCopy(): Yemekhane
+    }
+
+    class Şube {
+    
+    - name : String
+    - kar: double
+    - yemeklistesi: HashMap
+        
+    +Şube()
+        
+
+    +yemekEkle()   
+    +getName() : String
+    +setName()
+    +getKar() : Double
+    +setKar()
+    +getYemekListesi() : HashMap<String, Double>
+    +setYemekListesi()
+    +shadowCopy() : Yemekhane
+    #clone() : Object 
+    
+    
+    }
+    
+  Yemekhane <|.. Şube : <<implements>>
+  
+   
+   
+   class Main{
+        +{static}main(String[] args): void
+    }
+
+Main"1" -- "*" Şube
+
+
+--
+
+
+ 
+ 
+ 
+ 
+ 
+ 

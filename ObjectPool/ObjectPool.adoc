@@ -1,0 +1,53 @@
+.ObjectPool
+[uml,file="ObjectPool.png"]
+--
+    class Gişe {
+        + name : String 
+        + müsait : boolean
+        
+        +Gişe(String name)
+       
+    }
+
+    class Banka {
+    
+        -{static}<<volatile>> banka : Banka
+        -{static} lock : Object
+        -{static}  Gişeler [] : Gişe
+        
+        -Banka()
+        
+        +{static}BoşGişeBul() : Gişe
+        +{static}Ayrıl(Gişe): void
+        -{static}BosGişe(Gişe[]) : Gişe 
+
+        
+    
+    }
+    
+Banka"1" -- "1" Banka
+Banka"1" -- "*" Gişe  
+Main ..> Banka : <<use>>
+Main"1"--"*"Main
+   
+   
+   class Main{
+        +run()
+        +{static}main(String[] args)
+   
+ 
+   }
+
+Thread <|.. Main : <<extend>>
+
+
+--
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
