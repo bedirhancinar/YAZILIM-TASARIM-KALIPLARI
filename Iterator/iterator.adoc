@@ -1,0 +1,138 @@
+ 
+
+
+
+
+
+
+== Iterator UML
+
+
+.Iterator Uml
+[uml,file="iteratoruml.png"]
+--
+
+interface  Iteratorr{
+    +hasNext(): boolean
+    +nextObject(): Object
+}
+
+interface  Container{
+    +getIterator() : Iterator
+}
+
+class ListContainer{
+    +müşteriler: List<StringBuilder>
+}
+
+class ArrayContainer{
+    +notlar: int[]
+}
+
+class Iterator{
+    -index : int
+}
+
+
+
+class Main{
+    --
+    + {static} main()
+
+}
+
+
+
+Iterator ..|> Iteratorr : <<implements>>
+
+ListContainer ..|> Container : <<implements>>
+ArrayContainer ..|> Container : <<implements>>
+
+ListContainer"1"  *--- "1"Iterator
+ArrayContainer"1"  *--- "1"Iterator
+Main"1" -- "*"Thread
+Main"1" -- "1"ArrayContainer
+Main"1" -- "1"ListContainer
+--
+
+
+== Iterator Tasarım Kalıbı Kod İncelemesi
+
+[source,java]
+----
+public interface Iterator { //<1>
+
+    public boolean hasNext();
+
+    public Object nextObject();
+
+}
+
+
+public interface Container {  //<2>
+
+    public Iterator getIterator();
+
+}
+
+public class ListContainer implements Container {//<3>
+
+    public List<StringBuilder> müşteriler = new ArrayList<>();
+
+
+
+    @Override
+    public Iterator getIterator() {//<4>
+        return new Iterator();
+    }
+
+
+
+    private class Iterator implements com.company.Iterator { //<5>
+
+        private int index=0;
+
+        @Override
+        public boolean hasNext() { //<6>
+            if (index< müşteriler.size()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+        @Override
+        public Object nextObject() {
+            if (this.hasNext()){ //<7>
+                return müşteriler.get(index++);  //<8>
+            }else{
+                return null;
+            }
+
+        }
+    }
+
+
+
+
+
+}
+
+----
+ 
+<1>  Iteratörun interface kısmıdır. Iteratörü kalıtım yoluyla alacak sınıfların sahip olması gereken sınıflar ve dönüş tiplerini göstermektedir.
+
+<2> Container interfacesidir. Bu interface'yi implement methoduyla kalıtım alan sınıfların override etmesi gereken fonksiyonların kalıtımı sağlanır.
+
+<3> ListContainer Container interface'ini kalıtım alan bir sınıftır.
+
+<4>  Kalıtım aldığı için getIterator() fonksiyonu override edilir. Iterator tipinde bir nesne döndürür.
+
+<5> Iterator adında interfaceden kalıtım sağlayan ıterator adındaki sınıf
+
+<6> override yaparak hasNext() fonksiyonu ile Listedeki bir sonraki elemanın olup olmadığı kontrol ediliyor.
+
+<7> Listenin bir sonraki elemanı var mı diye kontrol eder.
+
+<8> Listenin indexteki elemanını döndürür ve daha sonra indexi artırır.

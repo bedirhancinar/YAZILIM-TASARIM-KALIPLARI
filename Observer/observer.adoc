@@ -1,0 +1,159 @@
+ 
+
+
+
+
+
+
+== Observer UML
+
+.Observer Uml
+[uml,file="observeruml.png"]
+--
+
+abstract class Üye {
+
+    # diziSitesi : DiziSitesi
+    + {abstract} bildirim() : void
+}
+
+
+class DiziSitesi{
+    - mesaj : String
+    - üyeList : List<Üye>
+
+
+    + ekleKişi(Üye ) : void
+    + çıkarKişi(Üye ): void
+    + setMesaj(String) : void
+    + getMesaj() : String
+    + herkeseBildirimGönder() : void
+
+}
+
+
+class SilverÜye{
+
+    +SilverÜye(DiziSitesi)
+
+}
+
+class GoldÜye{
+
+    +GoldÜye(DiziSitesi)
+
+}
+
+
+class PlatÜye{
+
+    +PlatÜye(DiziSitesi)
+   
+}
+
+
+class Thread{
+  Runnable()
+}
+
+
+
+SilverÜye --|> Üye : <<extends>>
+GoldÜye --|> Üye : <<extends>>
+PlatÜye --|> Üye : <<extends>>
+DiziSitesi"1" -- "2"Thread
+
+
+DiziSitesi"1" *-- "*"Üye
+
+--
+
+
+== Builder Tasarım Kalıbı Kod İncelemesi
+
+[source,java]
+----
+public abstract class Üye { //<1>
+
+    protected DiziSitesi diziSitesi;
+    public abstract void bildirim();
+}
+
+public class SilverÜye extends Üye { //<2>
+
+
+    public SilverÜye(DiziSitesi diziSitesi){ //<3>
+        this.diziSitesi=diziSitesi;
+        this.diziSitesi.ekleKişi(this);
+    }
+
+    @Override
+    public void bildirim() { //<4>
+        System.out.println("Silver üye olduğunuz için diziniz "+ diziSitesi.getMesaj() +" bu akşam saatinde yayınlanacaktır.");
+    }
+}
+
+
+public class DiziSitesi { //<5>
+    private String mesaj;
+    private List<Üye> üyeList = new ArrayList<>();
+
+    public void ekleKişi(Üye üye){
+        üyeList.add(üye);
+    }
+
+    public void çıkarKişi(Üye üye){
+        üyeList.remove(üye);
+    }
+
+    public void setMesaj(String mesaj) { //<6>
+        this.mesaj = mesaj;
+        herkeseBildirimGönder();
+    }
+
+    public String getMesaj() {
+        return mesaj;
+    }
+
+    public void herkeseBildirimGönder(){ //<7>
+
+         int sayı=üyeList.size();
+
+        new Thread(new Runnable() {
+            public void run()
+            {
+                for (int i= 0; i<sayı/2; i++ ){
+                    üyeList.get(i).bildirim();
+                }
+            }}).start();
+
+        new Thread(new Runnable() {
+            public void run()
+            {
+                for (int i= sayı/2 ; i<sayı; i++ ){
+                    üyeList.get(i).bildirim();
+                }
+            }}).start();
+
+    }
+}
+
+
+
+----
+ 
+<1> Abstract tipinde bir sınıf oluşturularak bu sınıfı extend edecek olan sınıfların sahip olması gereken referansları ve fonksiyonları gösteriyor.
+
+<2> Üye tipinden üretilmiş bir sınıf olan SilverÜye sınıfı Üye sınıfının fonksiyonlarınıda override ediyor. 
+
+<3> SilverÜye constructor fonksiyonuyla Üye sınıfından miras aldığı DiziSitesini güncelleyecek DiziSitesi tipinde nesne alır.
+
+<4> Üye statüsüne özel mesaj ve özellikler olduğunu göstermek için bildirim gönderilir.
+
+<5> Elinde Üye tipinde nesne bulunduran ve bu liste üzerinde bir takım işlemler yapan sınıfımızdır.
+
+<6> Mesaj düzenlenmesi için çalışacak fonksiyon aynı zamanda değiştirildikten sonra tüm üyelere bildirim yapması için herkese bildirim gönder fonksiyonunu çalıştırır.
+
+<7> Listemizdeki tüm üyelere bildirim gönderir bunu yaparkende thread kullanarak daha hızlı şekilde yapmayı amaçlar.
+
+
